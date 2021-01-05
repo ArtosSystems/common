@@ -32,7 +32,7 @@ interface BalanceFormatter {
   setDefaults (defaults: Partial<Defaults>): void;
 }
 
-const DEFAULT_DECIMALS = 0;
+const DEFAULT_DECIMALS = 18;
 const DEFAULT_UNIT = SI[SI_MID].text;
 
 let defaultDecimals = DEFAULT_DECIMALS;
@@ -66,7 +66,7 @@ function _formatBalance <ExtToBn extends ToBn> (input?: number | string | BN | B
   const mid = text.length - (decimals + si.power);
   const prefix = text.substr(0, mid);
   const padding = mid < 0 ? 0 - mid : 0;
-  const postfix = `${`${new Array(padding + 1).join('0')}${text}`.substr(mid < 0 ? 0 : mid)}0000`.substr(0, 4);
+  const postfix = `${`${new Array(padding + 1).join('0')}${text}`.substr(mid < 0 ? 0 : mid)}000000000000000000`.substr(0, 18);
   const units = withSi || withSiFull
     ? si.value === '-'
       ? withUnit
